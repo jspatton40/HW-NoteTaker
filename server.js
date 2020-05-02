@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const uuid = require("uuid");
 
 const db = require("./db.json");
 
@@ -23,15 +24,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "./index.html"));
+  res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 //Sending /notes to notes.html
 app.get("/notes", function (req, res) {
-  res.sendFile(path.join(__dirname, "./notes.html"));
+  res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 
-  //Setting index.html as our home page
-  // app.get("/", function(req, res) {
-  //   res.sendFile(path.join(_dirname, "index.html"));
-  // });
+app.get("/api/notes", function (req, res) {
+  return res.json(db);
+});
+
